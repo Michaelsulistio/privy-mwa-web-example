@@ -1,8 +1,37 @@
-# Privy Auth + Solana `create-next-solana-app` Starter
+# Privy + Solana `create-next-solana-app` Starter using Mobile Wallet Adapter (MWA)
 
 This is a template for integrating Privy's Solana capabilities into a Next.js application. It provides a simple setup for wallet login, embedded wallets, and transaction signing using the [Privy React SDK](https://docs.privy.io/basics/react/installation).
 
 This demo uses NextJS's [App Router](https://nextjs.org/docs/app).
+
+## Mobile Wallet Adapter
+
+In `components/providers.tsx`, the Mobile Wallet Adapter standard wallet is registered calling `registerMwa`.
+
+With:
+
+```tsx
+// In providers.tsx
+
+import { 
+    createDefaultAuthorizationCache, 
+    createDefaultChainSelector, 
+    createDefaultWalletNotFoundHandler,
+    registerMwa, 
+} from '@solana-mobile/wallet-standard-mobile';
+
+registerMwa({
+    appIdentity: {
+      name: 'My Example',
+      uri: 'https://solanamobile.com',
+      icon: 'favicon.ico', // resolves to https://solanamobile.com/favicon.ico
+    },    
+    authorizationCache: createDefaultAuthorizationCache(),
+    chains: ['solana:devnet', 'solana:mainnet'],
+    chainSelector: createDefaultChainSelector(),
+    onWalletNotFound: createDefaultWalletNotFoundHandler(),
+})
+```
 
 ## Setup
 
